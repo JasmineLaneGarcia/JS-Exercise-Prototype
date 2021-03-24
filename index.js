@@ -40,8 +40,8 @@ function Airplane(name) {
   */
   
  function Person(name, age){
-    this.name;
-    this.age;
+    this.name = name;
+    this.age = age;
     this.stomach = [];
  }
  Person.prototype.eat = function(someFood){
@@ -75,14 +75,31 @@ function Airplane(name) {
   */
   
  function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
     this.tank = 0;
     this.odometer = 0
   }  
   Car.prototype.fill = function(gallons){
-      this.tank.add(gallons);
+      this.tank = this.tank + gallons;
     }
+  Car.prototype.drive = function(distance){
+      const driveableMiles = this.tank * this.milesPerGallon;
+      if(distance <= driveableMiles){
+        this.odometer = this.odometer + distance;
+        this.tank = this.tank - (distance / this.milesPerGallon)
+      }else{
+        this.odometer = this.odometer = driveableMiles;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles`;
+      }
+  }
+
+    const eclipse = new Car('Eclipse', 20);
   
-  // console.log('Task 2:', Car);
+  eclipse.fill(14);
+  console.log('Task 2:', eclipse.tank);
+
   
   /*
     TASK 3
@@ -103,8 +120,8 @@ function Airplane(name) {
  
   const Murray = new Baby('Murray', 39, 'basket ball'); //new binding
 
-  console.log(Murray.toString());
-  console.log(Murray.play());
+  console.log('Task 3:', Murray.toString());
+  console.log('Task 3:', Murray.play());
   
   /* 
     TASK 4
