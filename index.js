@@ -39,15 +39,26 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
+ function Person(name, age){
+    this.name;
+    this.age;
+    this.stomach = [];
+ }
+ Person.prototype.eat = function(someFood){
+      if(this.stomach.length < 10){
+        this.stomach.push(someFood);
+      }
+  }
+  Person.prototype.poop = function(){  
+      this.stomach = [];
+  } 
+  Person.prototype.toString = function(){
+      return `${this.name}, ${this.age}`;
   }
  
- 
+  const jasmine = new Person('Jasmine', 25);
 
-  
-  
-  
+ console.log('Task 1:', jasmine.toString());
   
   /*
     TASK 2
@@ -63,10 +74,15 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
-  }
+ function Car(model, milesPerGallon) {
+    this.tank = 0;
+    this.odometer = 0
+  }  
+  Car.prototype.fill = function(gallons){
+      this.tank.add(gallons);
+    }
   
+  // console.log('Task 2:', Car);
   
   /*
     TASK 3
@@ -75,18 +91,28 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name, age, favoriteToy) {
+   Person.call(this, name, age);
+   this.favoriteToy = favoriteToy;
+  }
+  Baby.prototype = Object.create(Person.prototype); // this tells the baby to inherit the person's methods
+  //any special methods that belong to the baby we write down here
+  Baby.prototype.play = function(){
+    return `playing with ${this.favoriteToy}`;
   }
  
+  const Murray = new Baby('Murray', 39, 'basket ball'); //new binding
+
+  console.log(Murray.toString());
+  console.log(Murray.play());
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. If the 'new' keyword is used when calling the function, 'this' inside the function is a brand new object. (new Binding)
+    2. If 'apply', 'call', or 'bind' are used to call a function, 'this' inside the function is the object that is passed in as the argument. (Explicit Binding)
+    3. When dot notation is used to invoke a function, if a funciton is called as a method, 'this' is the oject that the function is a property of. (Implicit Binding)
+    4. If a funciton is invoked as a free function invocation, 'this' is the global object. (window Binding)
   */
   
   
